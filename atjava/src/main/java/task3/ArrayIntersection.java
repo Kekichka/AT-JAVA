@@ -1,7 +1,7 @@
 package task3;
 import java.util.*;
 
-//V4.
+//V4
 //Array Intersection: Write a Java program that takes two arrays of integers and finds their intersection. Your program should prompt the user to enter the size and the elements of both arrays and then output the common elements between them.
 //Make HashMap from the result array and perform the following operations: a) Add a key-value pair to the map; b) Remove a key-value pair from the map; c) Check if a key is in the map; d) Find the value associated with a given key; e) Print all the keys and values in the map;
 //Make up the situation for NumberFormatException. Catch it and display the explanation for your custom case.
