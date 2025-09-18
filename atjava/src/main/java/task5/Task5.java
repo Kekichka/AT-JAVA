@@ -20,24 +20,18 @@ import java.io.*;
 import java.net.URL;
 import java.util.Scanner;
 
-public class Task5 {
+public class Task5{
     private static final String INPUT_FILE_JSON_PATH = "C:\\Users\\home\\Desktop\\AT\\atjava\\src\\main\\resources\\input.json";
     private static final String OUTPUT_FILE_JSON_PATH = "C:\\Users\\home\\Desktop\\AT\\atjava\\src\\main\\resources\\output.json";
     public static void main(String[] args) {
 
         String inputJson = "";
 
-        try {
-            File file = new File (INPUT_FILE_JSON_PATH).getAbsoluteFile();
-            Scanner scanner = new Scanner(file);
-
-            while ( scanner.hasNextLine()){
-                String line = scanner.nextLine();
-                inputJson += line;
+        try (Scanner scanner = new Scanner(new File(INPUT_FILE_JSON_PATH))) {
+            while (scanner.hasNextLine()) {
+                inputJson += scanner.nextLine();
             }
-            scanner.close();
-
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -52,13 +46,21 @@ public class Task5 {
         }
 
         user.setName("test");
-        user.getAddress().add("test address");
-        user.getAddress().remove("WA");
+        if (user.getAddress() != null) {
+            user.getAddress().setStreet("test street");
+            user.getAddress().setCity("test city");
+        }
+        saveToJson(user);
+    }
 
-        try {
-            objectMapper.writeValue(new File("target/car.json"), user);
+    private static void saveToJson(User user) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try (FileWriter writer = new FileWriter(OUTPUT_FILE_JSON_PATH)) {
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(writer, user);
+            System.out.println(" збережено в output.json");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
+
 }

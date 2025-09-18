@@ -1,12 +1,11 @@
 package task5;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class User implements Serializable {
     private String name;
     private Boolean isEmployed;
-    private List<String> address;
+    private Address address;
 
     @Override
     public String toString() {
@@ -26,19 +25,15 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public Boolean getEmployed() {
+    public Boolean getIsEmployed() {
         return isEmployed;
     }
 
-    public void setEmployed(Boolean employed) {
-        isEmployed = employed;
+    public void setIsEmployed(Boolean isEmployed) {
+        this.isEmployed = isEmployed;
     }
 
-    public List<String> getAddress() {
-        return address;
-    }
 
-    public void setAddress(List<String> address) {
-        this.address = address;
-    }
+    public Address getAddress() { return address; }
+    public void setAddress(Address address) { this.address = address; }
 }
