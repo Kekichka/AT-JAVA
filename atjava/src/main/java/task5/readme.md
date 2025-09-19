@@ -1,3 +1,3 @@
-maven for task 5
+# maven for task 5
 
-mvn exec:java -Dexec.mainClass="task5.Task5" -Dexec.args="10"
+mvn clean install exec:java -Dexec.mainClass="atjava.task5.Stream;" -Dexec.args="arg0 arg1"
