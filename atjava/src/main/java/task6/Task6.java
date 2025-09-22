@@ -12,42 +12,60 @@ import java.util.UUID;
 
 public class Task6 {
     public static void main(String[] args) {
-        Session session = null;
-        //create
-        Address newAddress = create();
 
-        //read
-        session = HibernateUtil.getSessionFactory().openSession();
-        Address addressread = session.get(Address.class, newAddress.getId());
-        System.out.println(addressread);
-        session.close();
+        Address newAddress = createAddress("kittenCity", "meowState");
 
-        //update
-        session = HibernateUtil.getSessionFactory().openSession();
-        addressread.setCity("updatedCity");
-        session.beginTransaction();
-        session.update(addressread);
-        session.getTransaction().commit();
-        session.close();
+        Address readAddress = read(newAddress.getId());
 
-        //create
-        Address addressToDelete = create();
+        readAddress.setCity("updatedCity");
+        update(readAddress);
 
-        //delete
-        session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.delete(addressToDelete);
-        session.getTransaction().commit();
-        session.close();
+        Address addressToDelete = createAddress("deleteCity", "deleteState");
 
+        delete(addressToDelete.getId());
     }
-    private static Address create (){
+
+    public static Address createAddress(String city, String state) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Address address = new Address(UUID.randomUUID().toString().substring(0,10),"kittenCity", "meowState");
-        Integer id = (Integer) session.save(address);
+        Address address = new Address(
+                UUID.randomUUID().toString().substring(0, 10),
+                city,
+                state
+        );
+        session.save(address);
         session.getTransaction().commit();
         session.close();
+        System.out.println("Created: " + address);
         return address;
+    }
+
+    public static Address read(Integer id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Address address = session.get(Address.class, id);
+        session.close();
+        System.out.println("Read: " + address);
+        return address;
+    }
+
+    public static void update(Address address) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        session.update(address);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+    public static void delete(Integer id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Address address = session.get(Address.class, id);
+        if (address != null) {
+            session.delete(address);
+            System.out.println("Deleted: " + address);
+        }
+        session.getTransaction().commit();
+        session.close();
     }
 }
