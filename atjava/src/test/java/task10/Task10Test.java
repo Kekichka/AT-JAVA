@@ -34,17 +34,29 @@ public class Task10Test {
         Assert.assertTrue(homeButton.isDisplayed());
 
         homeButton.click();
+        sleep(2000);
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebElement nextButton = driver.findElement(By.xpath("//*[@id=\"carouselExampleIndicators\"]/a[2]/span[1]"));
+        Assert.assertTrue(nextButton.isDisplayed());
+        nextButton.click();
+        sleep(2000);
 
+        WebElement nextPage = driver.findElement(By.xpath("//*[@id=\"next2\"]"));
+        Assert.assertTrue(nextPage.isDisplayed());
+        nextPage.click();
+        sleep(2000);
 
     }
     @AfterTest
     void close(){
         driver.quit();
+    }
+
+    private void sleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
