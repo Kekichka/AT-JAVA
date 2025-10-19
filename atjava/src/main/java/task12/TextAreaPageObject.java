@@ -10,6 +10,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+//
+// TASK 12:
+// Implement PageFactory for a few pages.
+// Implement a Wrapper for common WebElements (choose your variant).
+// Implement methods for your web element with console logging.
+// Use those methods in a simple TC scenario.
+//
+// Textareas:
+// - setText: sets the text value of a textarea
+// - getText: retrieves the text value of a textarea
+// - waitForText: waits for a specific text to be present in the textarea
+//
+
 public class TextAreaPageObject {
 
     WebDriver driver;
